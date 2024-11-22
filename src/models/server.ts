@@ -39,8 +39,8 @@ class Server {
             })
         })
 
-        this.app.use('/api/productos', routesProducto);
         this.app.use('/api/auth', authRoutes);
+        this.app.use('/api/productos', routesProducto);
         this.app.use('/api/ventas', ventasRoutes);
         this.app.use('/api/ingresos', ingresosRoutes);
 

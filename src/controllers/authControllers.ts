@@ -47,30 +47,30 @@ export const loginUser = async (req: Request, res: Response) => {
 
     try {
         const user = await User.findOne({ where: { email } });
+
         if (!user) {
             return res.status(400).json({
-                msg: 'Correo o contraseña incorrectos'
+                msg: 'Correo o contraseña incorrectos',
             });
         }
 
-        const isMatch = bcrypt.compareSync(password, user.password);
-        if (!isMatch) {
+        // Comparar las contraseñas en texto claro
+        if (user.password !== password) {
             return res.status(400).json({
-                msg: 'Correo o contraseña incorrectos'
+                msg: 'Correo o contraseña incorrectos',
             });
         }
 
-        const token = jwt.sign({ id: user.idUsers }, 'SECRET_KEY', { expiresIn: '2h' });
-
-        res.json({
+        // Si las contraseñas coinciden, respondemos con el rol
+        return res.json({
             msg: 'Login exitoso',
-            token
+            role: user.rol, // Devolver solo el rol
         });
 
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            msg: 'Error en el servidor, contacte a soporte'
+            msg: 'Error en el servidor, contacte a soporte',
         });
     }
-}
+};

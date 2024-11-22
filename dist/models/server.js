@@ -34,8 +34,8 @@ class Server {
                 msg: 'API Working'
             });
         });
-        this.app.use('/api/productos', productosRoutes_1.default);
         this.app.use('/api/auth', authRoutes_1.default);
+        this.app.use('/api/productos', productosRoutes_1.default);
         this.app.use('/api/ventas', ventasRoutes_1.default);
         this.app.use('/api/ingresos', ingresosRoutes_1.default);
     }
